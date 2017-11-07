@@ -28,8 +28,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                setBuildStatus("In Progressssssss","SUCCESS","jenkins-pipeline-git",env.GIT_COMMIT )
             }
-            setBuildStatus("In Progressssssss","SUCCESS","jenkins-pipeline-git",env.GIT_COMMIT )
+            
         }
     }
 }
