@@ -1,4 +1,4 @@
-def setBuildStatus(String message, String state, String context, String sha) {  
+def setBuildStatus(String message, String state, String context) {  
     step([
         $class: "GitHubCommitStatusSetter",        
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],        
