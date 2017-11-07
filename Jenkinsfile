@@ -11,7 +11,7 @@ def setBuildStatus(String message, String state, String context, String sha) {
     ]);
 } 
 pipeline {
-    agent any
+    agent any 
 
     stages {
         stage('Build') {
