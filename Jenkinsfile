@@ -15,24 +15,24 @@ pipeline {
 
     stages {
         stage('Build') {
-            steps {
+            
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
                 echo 'Building..'
                 setBuildStatus("In Progress Build","PENDING","jenkins-pipeline",env.GIT_COMMIT )
                 for (i = 0; i <500; i++) {
                     echo 'Results Hello World'
-                }      
+                     
             }
         }
         stage('Test') {
-            steps {
+            
                 echo 'Testing..'
                 setBuildStatus("In Progress Test","PENDING","jenkins-pipeline",env.GIT_COMMIT )
                 for (i = 0; i <500; i++) {
                     echo 'Results Hello World'
                 } 
                 setBuildStatus("In Progress Test","PENDING","jenkins-pipeline",env.GIT_COMMIT )
-            }
+           
         }
         stage('Deploy') {
             setBuildStatus("In Progress Deploy","PENDING","jenkins-pipeline",env.GIT_COMMIT )
@@ -40,9 +40,9 @@ pipeline {
                     echo 'Results Hello World'
                 } 
             setBuildStatus("Doneeeee","SUCCESS","jenkins-pipeline",env.GIT_COMMIT )    
-            steps {
+           
                 echo 'Deploying....'
-            }
+            
         }
     }
 }
