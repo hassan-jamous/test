@@ -1,4 +1,4 @@
-def setBuildStatus(String message, String state, String context) {  
+def setGithubStatus(String message, String state, String context) {  
     step([
         $class: "GitHubCommitStatusSetter",        
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],        
@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
                 echo 'Building..'
-                setBuildStatus("In Progresss","SUCCESS","jenkins-pipeline-git",env.GIT_COMMIT )
+                setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git",env.GIT_COMMIT )
             }
         }
         stage('Test') {
@@ -25,8 +25,8 @@ pipeline {
             steps {
                 echo 'Deploying....'
                  setGitHubPullRequestStatus context: 'jenkins-pipeline-git', message: 'Results', state: 'SUCCESS'
-                setBuildStatus("In Progresss","SUCCESS","jenkins-pipeline-git",env.GIT_COMMIT )
-                setBuildStatus("In Progresss","SUCCESS","asdfasdfasdf",env.GIT_COMMIT )
+                setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git",env.GIT_COMMIT )
+                setGithubStatus("In Progresss","SUCCESS","asdfasdfasdf",env.GIT_COMMIT )
                 setGitHubPullRequestStatus context: 'kkkkkk', message: 'Results', state: 'SUCCESS'
             }
             
