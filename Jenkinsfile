@@ -28,7 +28,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                 setGitHubPullRequestStatus context: 'jenkins-pipeline', message: 'Results', state: 'SUCCESS'
+                 setGitHubPullRequestStatus context: 'jenkins-pipeline-git', message: 'Results', state: 'SUCCESS'
             }
             
         }
