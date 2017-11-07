@@ -10,32 +10,26 @@ def setBuildStatus(String message, String state, String context, String sha) {
         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
     ]);
 }
+pipeline {
+    agent any
 
-node { 
-   
-   stage('Preparation') { 
-       echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
-       /*step([$class: 'GitHubCommitStatusSetter', contextSource: [$class: 'ManuallyEnteredCommitContextSource',
-                          context: 'jenkins-pipeline'],
-           statusResultSource: [$class: 'ConditionalStatusResultSource',
-                                results: [[$class: 'AnyBuildResult',
-                                           message: 'test message',
-                                          state: 'PENDING']]]])*/
-                                          
-        setBuildStatus("In Progress","PENDING","jenkins-pipeline",env.GIT_COMMIT )
-                                          
-                                          
-     echo 'Preparation Hello World'
-     
-   }
-   stage('Build') {
-      echo 'Build Hello World'
-      setGitHubPullRequestStatus context: 'jenkins-pipeline', message: 'Build', state: 'PENDING'
-   }
-   stage('Results') {
-       /*for (i = 0; i <2000; i++) {
-           echo 'Results Hello World'
-        }*/
-       setGitHubPullRequestStatus context: 'jenkins-pipeline', message: 'Results', state: 'SUCCESS'
-   }
+    stages {
+        stage('Build') {
+            steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
+                echo 'Building..'
+                 setBuildStatus("In Progress","PENDING","jenkins-pipeline",env.GIT_COMMIT )
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
 }
