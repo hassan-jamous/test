@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
                 echo 'Building..'
-                 setBuildStatus("In Progress","PENDING","jenkins-pipeline",env.GIT_COMMIT )
+                 setBuildStatus("In Progresss","SUCCESS","jenkins-pipeline",env.GIT_COMMIT )
             }
         }
         stage('Test') {
