@@ -11,7 +11,7 @@ def setBuildStatus(String message, String state, String context, String sha) {
     ]);
 }
 
-node {
+node { 
    
    stage('Preparation') { 
        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
