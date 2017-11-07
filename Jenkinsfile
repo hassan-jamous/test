@@ -1,11 +1,7 @@
 def setBuildStatus(String message, String state, String context, String sha) {  
     step([
-        $class: "GitHubCommitStatusSetter",
-        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/hassan-jamous/test"],
-        contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],
-        errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
-        commitShaSource: [$class: "ManuallyEnteredShaSource", sha: env.GIT_COMMIT ],
-        statusBackrefSource: [$class: "ManuallyEnteredBackrefSource", backref: "${BUILD_URL}flowGraphTable/"],
+        $class: "GitHubCommitStatusSetter",        
+        contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],        
         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
     ]);
 } 
@@ -29,6 +25,9 @@ pipeline {
             steps {
                 echo 'Deploying....'
                  setGitHubPullRequestStatus context: 'jenkins-pipeline-git', message: 'Results', state: 'SUCCESS'
+                setBuildStatus("In Progresss","SUCCESS","jenkins-pipeline-git",env.GIT_COMMIT )
+                setBuildStatus("In Progresss","SUCCESS","asdfasdfasdf",env.GIT_COMMIT )
+                setGitHubPullRequestStatus context: 'kkkkkk', message: 'Results', state: 'SUCCESS'
             }
             
         }
