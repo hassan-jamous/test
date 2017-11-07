@@ -1,5 +1,5 @@
 
-def setBuildStatus(String message, String state, String context, String sha) {
+def setBuildStatus(String message, String state, String context, String sha) {  
     step([
         $class: "GitHubCommitStatusSetter",
         reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/hassan-jamous/test"],
