@@ -10,33 +10,31 @@ def setBuildStatus(String message, String state, String context, String sha) {
         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
     ]);
 } 
-pipeline {
-    agent any 
+node {
 
     stages {
         stage('Build') {
-            node{
+            
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
                 echo 'Building..'
                 setBuildStatus("In Progress Build","PENDING","jenkins-pipeline",env.GIT_COMMIT )
                 for (i = 0; i <500; i++) {
                     echo 'Results Hello World'
                 }
-            }
+            
         }
         stage('Test') {
-            node {
+            
                 echo 'Testing..'
                 setBuildStatus("In Progress Test","PENDING","jenkins-pipeline",env.GIT_COMMIT )
                 for (i = 0; i <500; i++) {
                     echo 'Results Hello World'
                 } 
-                setBuildStatus("In Progress Test","PENDING","jenkins-pipeline",env.GIT_COMMIT )
-            }
+                setBuildStatus("In Progress Test","PENDING","jenkins-pipeline",env.GIT_COMMIT )           
            
         }
         stage('Deploy') {
-            node {
+            
             setBuildStatus("In Progress Deploy","PENDING","jenkins-pipeline",env.GIT_COMMIT )
             for (i = 0; i <500; i++) {
                     echo 'Results Hello World'
@@ -44,7 +42,7 @@ pipeline {
             setBuildStatus("Doneeeee","SUCCESS","jenkins-pipeline",env.GIT_COMMIT )    
            
                 echo 'Deploying....'
-            }
+            
             
         }
     }
