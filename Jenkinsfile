@@ -25,9 +25,10 @@ def setGithubStatus(String message, String state, String context) {
             
         }
         stage('Deploy') {  
+            setGitHubPullRequestStatus context: 'jenkins-pipeline-git', message: 'Results', state: 'SUCCESS'
+
             node {
                 echo 'Deploying....'
-                setGitHubPullRequestStatus context: 'jenkins-pipeline-git', message: 'Results', state: 'SUCCESS'
                // setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git")
                // setGithubStatus("In Progresss","SUCCESS","asdfasdfasdf")
                 setGitHubPullRequestStatus context: 'kkkkkk', message: 'Results', state: 'SUCCESS'
