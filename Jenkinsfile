@@ -7,7 +7,7 @@ def setGithubStatus(String message, String state, String context) {
     ]);
 } 
 
-
+node {
         stage('Build') {
            
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
@@ -30,5 +30,6 @@ def setGithubStatus(String message, String state, String context) {
             
             
         }
+}
  
 
