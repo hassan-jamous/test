@@ -27,7 +27,13 @@ node{
              def GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
              echo 'Deploying.... ${GIT_COMMIT_HASH}'
                 // setGitHubPullRequestStatus context: 'jenkins-pipeline-git', message: 'Results', state: 'SUCCESS'
-
+             step([
+        $class: "GitHubCommitStatusSetter",      
+        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/hassan-jamous/test/"],
+        contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "hi"],  
+        commitShaSource: [$class: "ManuallyEnteredShaSource", sha: "${GIT_COMMIT_HASH}" ],
+        statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: "asdfasdf", state: "SUCCESS"]] ]
+    ]);
 
                 setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git",  "${GIT_COMMIT_HASH}")
                 setGithubStatus("In Progresss","SUCCESS","asdfasdfasdf", "${GIT_COMMIT_HASH}")
