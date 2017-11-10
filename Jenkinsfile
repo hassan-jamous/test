@@ -1,6 +1,7 @@
 def setGithubStatus(String message, String state, String context, String sha) { 
     step([
-        $class: "GitHubCommitStatusSetter",        
+        $class: "GitHubCommitStatusSetter",      
+        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/hassan-jamous/test/"],
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],  
         commitShaSource: [$class: "ManuallyEnteredShaSource", sha: sha ],
         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
