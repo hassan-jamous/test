@@ -13,12 +13,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
-                echo 'Building..'
+                GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+                echo 'Building.. ${GIT_COMMIT_HASH}'
                 setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git", "${env.GIT_COMMIT}")
             }
         }
         stage('Test') {
             steps {
+                
                 echo 'Testing..'
             }
         }
@@ -26,8 +28,8 @@ pipeline {
             steps {
                 echo 'Deploying....'
                  setGitHubPullRequestStatus context: 'jenkins-pipeline-git', message: 'Results', state: 'SUCCESS'
-                setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git", , "${env.GIT_COMMIT}")
-                setGithubStatus("In Progresss","SUCCESS","asdfasdfasdf", , "${env.GIT_COMMIT}")
+                setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git",  "${env.GIT_COMMIT}")
+                setGithubStatus("In Progresss","SUCCESS","asdfasdfasdf", "${env.GIT_COMMIT}")
                 setGitHubPullRequestStatus context: 'kkkkkk', message: 'Results', state: 'SUCCESS'
             }
             
