@@ -6,10 +6,8 @@ def setGithubStatus(String message, String state, String context) {
         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
     ]);
 } 
-pipeline {
-    agent any 
 
-    stages {
+
         stage('Build') {
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
@@ -32,5 +30,5 @@ pipeline {
             }
             
         }
-    }
-}
+ 
+
