@@ -13,8 +13,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
-                sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-                echo 'Building..'
+                def sha = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+                echo "Building..${sha}"
                 setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git", "${env.GIT_COMMIT}")
             }
         }
