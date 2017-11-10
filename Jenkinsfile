@@ -15,8 +15,9 @@ node{
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
                 sh 'git rev-parse HEAD > commit'
                 def commit = readFile('commit').trim()
-                echo "Building.. ${commit}"
-                setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git", "${env.GIT_COMMIT}")
+                def GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
+                echo "Building.. ${commit} .. ${GIT_COMMIT_HASH}"
+                setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git", "${commit}")
             
         }
         stage('Test') {
