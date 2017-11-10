@@ -24,7 +24,7 @@ node{
         }
         stage('Deploy') {
              def GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-            echo 'Deploying.... ${GIT_COMMIT_HASH}'
+             echo 'Deploying.... ${GIT_COMMIT_HASH}'
                 // setGitHubPullRequestStatus context: 'jenkins-pipeline-git', message: 'Results', state: 'SUCCESS'
 
 
