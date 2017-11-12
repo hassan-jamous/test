@@ -18,6 +18,8 @@ node{
                 def GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
                 echo "Building.. ${commit} .. ${GIT_COMMIT_HASH}"
                 setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git", "${commit}")
+                setGithubStatus("In Progresss","SUCCESS","specific sha", "83f9e4d")
+            
             
         }
         stage('Test') {
