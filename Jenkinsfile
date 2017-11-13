@@ -19,6 +19,7 @@ node{
                 echo "Building.. ${commit} .. ${GIT_COMMIT_HASH}"
                 setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git", "${commit}")
                 setGithubStatus("In Progresss","SUCCESS","specific sha", "140d5e63ccdc1374ce629746eaf5e52538d6349a")
+            step([$class: 'GitHubSetCommitStatusBuilder', statusMessage: [content: 'Pending sleepasdfasdfasdf']])
             
             
         }
