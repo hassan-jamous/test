@@ -16,11 +16,19 @@ def getCukeEnvironment(String fullEnvironmentName) {
     return "e2e.cuke.environments." + environmentName + ".js"
 }
 
+def getCukeTags(String branchName) {
+    def jsonTagFile = readFile('tags.json')
+    return new groovy.json.JsonSlurperClassic().parseText(jsonTagFile)[branchName];    
+}
+
 node{
   
         stage('Build') {
                def cuke = getCukeEnvironment("ewcs-syd-f1-mlcnp5-15");
                 echo "${cuke}"
+            
+            def cukeTags = getCukeTags("hassan-jamous-patch-13");
+                echo "${cukeTags}"
             
             
         }
