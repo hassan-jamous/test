@@ -20,7 +20,7 @@ def getCukeTags(String branchName) {
     def parssedTagsFile = new groovy.json.JsonSlurperClassic().parseText(readFile('tags.json'));
     String tags = parssedTagsFile[branchName];   
     if (!tags) {
-        tags = parssedTagsFile["default]
+        tags = parssedTagsFile["default"]
     }
     return tags;   
 }
