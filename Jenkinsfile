@@ -1,3 +1,4 @@
+#!groovy
 def setGithubStatus(String message, String state, String context, String sha) { 
     step([
         $class: "GitHubCommitStatusSetter",      
