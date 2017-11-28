@@ -24,6 +24,7 @@ def getCukeTags(String branchName) {
 node{
   
         stage('Build') {
+            checkout scm
                def cuke = getCukeEnvironment("ewcs-syd-f1-mlcnp5-15");
                 echo "${cuke}"
             
