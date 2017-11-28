@@ -17,8 +17,13 @@ def getCukeEnvironment(String fullEnvironmentName) {
 }
 
 def getCukeTags(String branchName) {
-    def jsonTagFile = readFile('tags.json')
-    return new groovy.json.JsonSlurperClassic().parseText(jsonTagFile)[branchName];    
+    def jsonTagFile = 
+    def  = new groovy.json.JsonSlurperClassic().parseText(readFile('tags.json'));
+    String tags = parssedTagsFile[branchName];   
+    if (!tags) {
+        tags = parssedTagsFile["default]
+    }
+    return tags;   
 }
 
 node{
