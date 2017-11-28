@@ -16,7 +16,7 @@ def getCukeEnvironment(String fullEnvironmentName) {
     return "e2e.cuke.environments." + environmentName + ".js"
 }
 
-def getCukeTags(String branchName) {
+def getTestTags(String branchName) {
     def branchesAndTestTags = new groovy.json.JsonSlurperClassic().parseText(readFile('tags.json'));
     String branchTestTags = branchesAndTestTags[branchName];   
     if (!branchTestTags) {
@@ -32,7 +32,7 @@ node{
                def cuke = getCukeEnvironment("ewcs-syd-f1-mlcnp5-15");
                 echo "${cuke}"
             
-            def cukeTags = getCukeTags("hassan-jamous-patch-13");
+            def cukeTags = getTestTags("hassan-jamous-patch-13");
                 echo "${cukeTags}"
             
             
