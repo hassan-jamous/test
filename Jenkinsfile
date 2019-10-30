@@ -1,3 +1,4 @@
+#!groovy
 def setGithubStatus(String message, String state, String context, String sha) { 
     step([
         $class: "GitHubCommitStatusSetter",      
@@ -8,17 +9,31 @@ def setGithubStatus(String message, String state, String context, String sha) {
     ]);
 } 
 
+def getCukeEnvironment(String fullEnvironmentName) {
+    def envNameStartIndex = fullEnvironmentName.indexOf("-mlc") + 4;
+    def envNameEndIndex = fullEnvironmentName.indexOf("-", envNameStartIndex)
+    def environmentName = fullEnvironmentName.substring(envNameStartIndex, envNameEndIndex);
+    return "e2e.cuke.environments." + environmentName + ".js"
+}
+
+def getTestTags(String branchName) {
+    def branchesAndTestTags = new groovy.json.JsonSlurperClassic().parseText(readFile('tags.json'));
+    String branchTestTags = branchesAndTestTags[branchName];   
+    if (!branchTestTags) {
+        branchTestTags = branchesAndTestTags["default"]
+    }
+    return branchTestTags;   
+}
+
 node{
   
         stage('Build') {
-                checkout scm
-                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BRANCH_NAME} and ${env.GIT_COMMIT}"
-                sh 'git rev-parse HEAD > commit'
-                def commit = readFile('commit').trim()
-                def GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-                echo "Building.. ${commit} .. ${GIT_COMMIT_HASH}"
-                setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git", "${commit}")
-                setGithubStatus("In Progresss","SUCCESS","specific sha", "83f9e4d")
+            checkout scm
+               def cuke = getCukeEnvironment("ewcs-syd-f1-mlcnp5-15");
+                echo "${cuke}"
+            
+            def cukeTags = getTestTags("hassan-jamous-patch-13");
+                echo "${cukeTags}"
             
             
         }
@@ -26,15 +41,7 @@ node{
                  echo 'Testing..'            
         }
         stage('Deploy') {
-            checkout scm
-             def GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-             echo 'Deploying.... ${GIT_COMMIT_HASH}'
-                // setGitHubPullRequestStatus context: 'jenkins-pipeline-git', message: 'Results', state: 'SUCCESS'
             
-
-               // setGithubStatus("In Progresss","SUCCESS","jenkins-pipeline-git",  "${GIT_COMMIT_HASH}")
-               // setGithubStatus("In Progresss","SUCCESS","asdfasdfasdf", "${GIT_COMMIT_HASH}")
-               // setGitHubPullRequestStatus context: 'kkkkkk', message: 'Results', state: 'SUCCESS'
         }
 }
    
